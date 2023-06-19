@@ -1,0 +1,26 @@
+:email: schlag@spengergasse.at
+:author: Schlag Martin
+:authorinitials: SLM
+:version-label: v
+:lang: DE
+:sectanchors:
+:sectids:
+:source-highlighter: rouge
+:rouge-style: slm-rouge-theme
+:source-language: Java
+:pygments-css: class
+:header-title: {title}
+:doctitle: {title}
+:version-label: v
+:revnumber: 1.0.0
+:revremark: {revnumber}
+:sectnums:
+:imagesdir: assets/images
+ifndef::revdate[]
+:revdate: {localdate}
+endif::[]
+ifndef::docyear[]
+:docyear: 2023
+endif::[]
+ifndef::backend-html[]
+endif::[]
