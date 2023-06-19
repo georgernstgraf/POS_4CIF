@@ -1,0 +1,300 @@
+:header-title: 2. PLF POS 1 Nachtermin
+:version: v1.0.0
+include::assets/unit-header.adoc[]
+:imagesdir: assets/images
+:title_page_title:
+:title_page_class: 4ACIF
+:title_page_date: 2023-06-14
+:title_page_time: 18:50 - 20:20
+:title_page_tutor: Georg Graf (GRG)
+:title_page_course: POS 1
+:title_page_title: Nachtermin 2. Praktische Leistungsfeststellung
+:title_page_subtitle: {title_page_class}
+:title:
+:raum: B3.08
+
+
+[title-page,type=plf]
+<<<
+
+:sectnums!:
+
+
+[WARNING]
+====
+* Bitte achten Sie darauf, nur kompilierfähige Programme abzugeben. Sollten Sie einen Compilerfehler nicht beheben können, kommentieren Sie das entsprechende Codestück aus. Nicht kompilierfähige Programme werden *negativ* bewertet!
+* Halten Sie sich *exakt* an die Vorgaben, Formate sowie Klassen- und Methodennamen.
+====
+
+---
+
+== Beschreibung
+
+Es soll eine Filme-Datenbank entwickelt werden, in welcher Filme verwaltet werden können.
+Entwickeln Sie die Software auf Basis des UML-Diagramms und den gegebenen Anforderungen.
+
+== UML-Diagramm
+
+[plantuml,format="svg",align=center]
+----
+package model {
+    class OnlineShop {
+        + {static} DIRECTION_ASC:int=5
+        + {static} DIRECTION_DESC:int=8
+        - name:String
+        - products:Product[]
+        ---
+        + OnlineShop( name:String )
+        ---
+        + add( product:Product ):boolean
+        + sellById( id:Long ):Product
+        + countProducts():int
+        + sortByPrice():Product[]
+        + toString():String
+    }
+
+    class Product {
+        - {static} idCounter:Long=34
+        - id:Long
+        - name:String
+        - price:double
+        - category:char
+        ---
+        + Product( name:String,price:double,
+                    \t\t category:char )
+        ---
+        + Getter/Setter
+        + toString():String
+    }
+}
+
+package test {
+    class ProductTest{}
+    class OnlineShopTest{}
+}
+
+OnlineShop o-right- Product
+' OnlineShop o-[hidden]- test
+model <-[hidden]- test
+----
+
+// class ProductTest {
+// }
+// class OnlineShopTest {
+// }
+
+
+== Prolog
+
+- Angabe auf dem *Z: Laufwerk* entpacken.
+- Entpacktes Projekt `s4-plf-001_online_shop` auf den Desktop kopieren.
+- *ALLE* Dateien und Verzeichnisse vom *Z: Laufwerk* löschen.
+- Projektordner `s4-plf-001_online_shop` mit IntelliJ öffnen.
+
+
+:sectnums:
+
+<<<
+
+
+== Aufgabe - Product
+
+Implementieren Sie die Model-Klasse `Product` gemäß UML-Diagramm und Klassenbeschreibung. Sie können die vorhandenen Testklassen für JUnit-Tests verwenden.
+
+
+.Klassenbeschreibung
+[%headers,cols="2m,5a"]
+|===
+|  Attribut/Methode | Beschreibung
+
+| idCounter |
+* Counter, der für jede erzeugte `Product`-Instanz eine eindeutige Id vergibt.
+* Der Counter soll beim Wert 34 starten.
+
+
+| id
+|
+* Jede `Product`-Instanz muss vom `idCounter` eine eindeutige Id erhalten, die nach ihrere Zuweisung *nicht* mehr verändert werden darf.
+
+
+| name
+|
+* Repräsentiert den Namen eines Produktes.
+// * Der Name des Products darf nicht null sein.
+// * Der Name des Products muss mindestens 3 Zeichen lang sein.
+// * Werfen Sie pro Fehlerfall eine `IllegalArgumentException` mit einer sprechenden Fehlermeldung.
+
+
+| price
+|
+* Preis des Produktes in Euro.
+
+| category
+|
+* Die Kategorie eines Produktes darf folgende Werte haben:
+
+[cols="^1m,8a"]
+!===
+! char ! Kategorie-Bezeichnung
+
+! m     ! Media
+! f     ! Food
+! c     ! Cosmetics
+! o     ! Office Equipment
+!===
+* Wird ein falscher Wert übergeben, so soll eine `IllegalArgumentException` geworfen werden.
+
+
+
+| toString +
+_String_
+|
+* Die Methode gibt einen String über sämtliche Informationen eines Produktes zurück:
++
+[source,text]
+----
+ID, NAME, PRICE €, CATEGORY
+----
+* Die Kategorie soll dabei ausgeschrieben werden.
+
+Beispiel:
+[source,text]
+----
+34, Smo-King Kaltrauchgenerator Big-Grill-SMO, 139.00 €, Food
+35, WURSTBARON® Premium Tomahawk Steak vom Jungbullen, 49.99 €, Food
+36, NYX Professional Makeup Epic Ink Eye Liner, 10.02 €, Cosmetics
+37, Smoofl Hundeeis, Premium Hundesnacks, 13.46 €, Food
+38, Bleistiftanspitzer Miauende Katze, 15.94 €, Office Equipment
+----
+&nbsp;
+|===
+
+
+
+<<<
+
+== Aufgabe - OnlineShop
+
+Implementieren Sie die Klasse `OnlineShop` gemäß UML-Diagramm und Klassenbeschreibung. Sie können die vorhandenen Testklassen für JUnit-Tests verwenden.
+
+.Klassenbeschreibung
+[%headers,cols="2m,5a"]
+|===
+|  Attribut/Methode | Beschreibung
+
+| name
+| Der Name des Onlineshops.
+
+| products
+|
+* Alle Produkte sollen im Array `products` vom Typ `Product[]` gespeichert werden.
+* Insgesamt sollen *5* Produkte gespeichert werden.
+* Achten Sie *genau* darauf, dass keine Methode eine Referenz auf das Array zurückliefert.
+
+
+| add( product ) +
+_boolean_
+|
+* Die Methode fügt ein neues Produkt in den Onlineshop hinzu.
+* Das Produkt darf nicht doppelt aufgenommen werden.
+* Wenn ein Produkt aufgenommen wurde, so soll die Methode `true` zurückliefern.
+* Im Fehlerfall bzw. wenn ein Produkt nicht aufgenommen wurde, so soll die Methode `false` zurückliefern.
+
+
+| sellById( id ) +
+_Product_
+|
+* Die Methode dient zum Verkaufen eines Produktes.
+* Wenn das Produkt mit der übergebenen `id` im Shop vorhanden ist, so soll es aus dem Array entfernt werden. Geben Sie das entfernte Objekt zurück.
+* Ist das Produkt mit der gesuchten `id` nicht vorhanden, so soll der Wert `null` zurückgegeben werden.
+
+
+| countProducts() +
+_int_
+|
+* Zählt alle im Shop vorhandenen Produkte und liefert den Wert zurück.
+
+
+| sortByPrice()
+_Product[]_
+|
+* Sortiert alle Produkte, *aufsteigend*, nach deren Preis.
+* Die Methode soll ein *neues* Array mit den sortierten Werten zurückliefern.
+* Alle `null` Werte sollen an das Ende des Arrays sortiert werden.
+* Das bestehende Array `products` soll unsortiert bleiben.
+
+Hinweis:: Kopieren Sie die Daten vor dem Sortieren zuerst in ein *neues* Array mit der gleichen Größe wie `products`.
+
+| toString() +
+_String_
+|
+
+* Liefert detaillierte Informationen über den Shop zurück:
+[source,text]
+----
+Shopbezeichnung: Joe's Milchbar
+Vorhandene Produkte:
+34, Smo-King Kaltrauchgenerator Big-Grill-SMO 1,25 Liter, 139.00 €, Food
+...
+----
+* Verwenden Sie eine Instanz der Klasse `StringBuilder` um die Informationen der Produkte zu sammeln.
+
+
+|
+*BONUSAUFGABE* +
+sortByPrice( direction )
+|
+
+* Erweitern Sie die Methode `sortByPrice()` um den Parameter `direction`.
+* Wenn ein falscher Wert übergeben wird, muss eine `IllegalArgumentException` geworfen werden.
+* Der Parameter `direction` gibt die Sortierreihenfolge an:
+
+Aufsteigend::
+- Wenn der Wert gleich wie dem Wert der Konstante `DIRECTION_ASC` ist.
+- Wenn ein ungültiger Wert übergeben wurde.
+
+Absteigend::
+- Wenn der Wert gleich dem Wert der Konstante `DIRECTION_DESC` ist.
+
+* Alle `null` Werte sollen bei beiden Varianten an das Ende des Arrays sortiert werden.
+
+|===
+
+
+== Aufgabe - JUnit
+
+Gegeben sei die Klasse `Pet` im package `test`. Implementieren Sie die JUnit Testklasse `PetTest` im richtigen Ordner.
+
+* Analysieren Sie vor der Implementierung die Klasse `Pet`.
+* Implementieren Sie *einen* JUnit-Testfall für die Methode `setName` in der Testklasse `PetTest`, der *nicht* die Funktion testet.
+
+
+[plantuml,format="svg",align=center,width=220]
+----
+scale 0.6
+skinparam Dpi 800
+
+class Pet {
+    + name : String
+    ---
+    + Pet( name:String )
+    ---
+    + getName():String
+    + setName( name:String ):void
+    + toString():String
+}
+----
+
+
+== Aufgabe - Abgabeverfahren
+
+- Projektordner `s4-plf-001_online_shop` mit dem Windows Explorer öffnen.
+- Datei `abgabe.cmd` ausführen.
+- *Z: Laufwerk* öffnen und Abgabe kontrollieren.
+- Vom Prüfungsrechner *abmelden*.
+
+
+'''
+
+[.good-luck]
+Viel Erfolg!!!
