@@ -1,6 +1,6 @@
 package model;
 
-public class Product {
+public class Movie {
 
     private static Long idCounter = 34L;
 
@@ -9,7 +9,7 @@ public class Product {
     private double price;
     private char category;
 
-    public Product(String name, double price, char category) {
+    public Movie(String name, double price, char category) {
         setId( idCounter++ );
         setName(name);
         setPrice(price);

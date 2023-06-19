@@ -1,6 +1,6 @@
 package model;
 
-public class OnlineShop {
+public class MovieDatabase {
 
     private static final String NL = "\n";
     private static final int DIRECTION_ASC = 5;
@@ -8,11 +8,11 @@ public class OnlineShop {
     public static final int CAPACITY = 5;
 
     private String name;
-    private Product[] products;
+    private Movie[] movies;
 
-    public OnlineShop(String name) {
+    public MovieDatabase(String name) {
         setName(name);
-        this.products = new Product[CAPACITY];
+        this.movies = new Movie[CAPACITY];
     }
 
     public String getName() {
@@ -25,23 +25,23 @@ public class OnlineShop {
 
     // -- METHODS ----
 
-    public boolean add(Product product) {
+    public boolean add(Movie movie) {
         // Check null
-        if(product == null)
+        if(movie == null)
             return false;
 
         // Check doppelt
-        for(Product p : products) {
-            if(p != null && p.getId() != null && p.getId().equals( product.getId() )) {
+        for(Movie p : movies) {
+            if(p != null && p.getId() != null && p.getId().equals( movie.getId() )) {
                 return false;
             }
         }
 
-        for(int i = 0; i < products.length; i++) {
-            Product temp = products[i];
+        for(int i = 0; i < movies.length; i++) {
+            Movie temp = movies[i];
 
             if(temp == null) {
-                products[i] = product;
+                movies[i] = movie;
                 return true;
             }
         }
@@ -50,15 +50,15 @@ public class OnlineShop {
     }
 
 
-    public Product sellById(Long id) {
+    public Movie sellById(Long id) {
         if(id == null)
             return null;
 
 
-        for(int i = 0; i < products.length; i++) {
-            Product temp = products[i];
+        for(int i = 0; i < movies.length; i++) {
+            Movie temp = movies[i];
             if( temp != null && id.equals( temp.getId() ) ) {
-                products[i] = null;
+                movies[i] = null;
                 return temp;
             }
         }
@@ -68,8 +68,8 @@ public class OnlineShop {
 
 
 
-    public Product[] sortByPrice() {
-        Product[] sorted = OnlineShop.copy( products );
+    public Movie[] sortByPrice() {
+        Movie[] sorted = MovieDatabase.copy( movies );
         int length = sorted.length;
 
         boolean isSorted = true;
@@ -78,8 +78,8 @@ public class OnlineShop {
         while (isSorted) {  // bonus
             isSorted = false;
             for(int i = 0; i < length - 1; i++) {
-                Product p1 = sorted[i];
-                Product p2 = sorted[i + 1];
+                Movie p1 = sorted[i];
+                Movie p2 = sorted[i + 1];
                 if(p2 == null)
                     continue;
                 if(p1 == null || p1.getPrice() > p2.getPrice()) {
@@ -91,32 +91,32 @@ public class OnlineShop {
         return sorted;
     }
 
-    private void swap(Product[] products, int i1, int i2) {
-        if(products == null)
-            throw new IllegalArgumentException("Products darf nicht null sein!");
+    private void swap(Movie[] movies, int i1, int i2) {
+        if(movies == null)
+            throw new IllegalArgumentException("Movies darf nicht null sein!");
 
-        Product temp = products[i1];
-        products[i1] = products[i2];
-        products[i2] = temp;
+        Movie temp = movies[i1];
+        movies[i1] = movies[i2];
+        movies[i2] = temp;
     }
 
 
     // Kann statisch und public implementiert werden, da Helper-Method
-    public static Product[] copy(Product[] products) {
-        if(products == null)
-            throw new IllegalArgumentException("Products darf nicht null sein!");
-        Product[] copy = new Product[products.length];
-        for(int i = 0; i < products.length; i++) {
-            copy[i] = products[i];
+    public static Movie[] copy(Movie[] movies) {
+        if(movies == null)
+            throw new IllegalArgumentException("Movies darf nicht null sein!");
+        Movie[] copy = new Movie[movies.length];
+        for(int i = 0; i < movies.length; i++) {
+            copy[i] = movies[i];
         }
 
         return copy;
     }
 
 
-    public int countProducts() {
+    public int countMovies() {
         int count = 0;
-        for(Product p : products) {
+        for(Movie p : movies) {
             count += (p == null ? 0 : 1);
         }
         return count;
@@ -127,9 +127,9 @@ public class OnlineShop {
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Shopbezeichnung: ").append(name).append(NL);
+        sb.append("Movie-DBbezeichnung: ").append(name).append(NL);
         sb.append("Vorhandene Produkte").append("NL");
-        for(Product p : products) {
+        for(Movie p : movies) {
             sb.append(p).append(NL);
         }
 

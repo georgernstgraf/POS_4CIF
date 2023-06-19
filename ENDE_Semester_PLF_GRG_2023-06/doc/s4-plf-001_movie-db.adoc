@@ -38,29 +38,29 @@ Entwickeln Sie die Software auf Basis des UML-Diagramms und den gegebenen Anford
 [plantuml,format="svg",align=center]
 ----
 package model {
-    class OnlineShop {
+    class MovieDatabase {
         + {static} DIRECTION_ASC:int=5
         + {static} DIRECTION_DESC:int=8
         - name:String
-        - products:Product[]
+        - movies:Movie[]
         ---
-        + OnlineShop( name:String )
+        + MovieDatabase( name:String )
         ---
-        + add( product:Product ):boolean
-        + sellById( id:Long ):Product
-        + countProducts():int
-        + sortByPrice():Product[]
+        + add( movie:Movie ):boolean
+        + sellById( id:Long ):Movie
+        + countMovies():int
+        + sortByPrice():Movie[]
         + toString():String
     }
 
-    class Product {
+    class Movie {
         - {static} idCounter:Long=34
         - id:Long
         - name:String
         - price:double
         - category:char
         ---
-        + Product( name:String,price:double,
+        + Movie( name:String,price:double,
                     \t\t category:char )
         ---
         + Getter/Setter
@@ -69,27 +69,27 @@ package model {
 }
 
 package test {
-    class ProductTest{}
-    class OnlineShopTest{}
+    class MovieTest{}
+    class MovieDatabaseTest{}
 }
 
-OnlineShop o-right- Product
-' OnlineShop o-[hidden]- test
+MovieDatabase o-right- Movie
+' MovieDatabase o-[hidden]- test
 model <-[hidden]- test
 ----
 
-// class ProductTest {
+// class MovieTest {
 // }
-// class OnlineShopTest {
+// class MovieDatabaseTest {
 // }
 
 
 == Prolog
 
 - Angabe auf dem *Z: Laufwerk* entpacken.
-- Entpacktes Projekt `s4-plf-001_online_shop` auf den Desktop kopieren.
+- Entpacktes Projekt `s4-plf-001_online_mdb` auf den Desktop kopieren.
 - *ALLE* Dateien und Verzeichnisse vom *Z: Laufwerk* löschen.
-- Projektordner `s4-plf-001_online_shop` mit IntelliJ öffnen.
+- Projektordner `s4-plf-001_online_mdb` mit IntelliJ öffnen.
 
 
 :sectnums:
@@ -97,9 +97,9 @@ model <-[hidden]- test
 <<<
 
 
-== Aufgabe - Product
+== Aufgabe - Movie
 
-Implementieren Sie die Model-Klasse `Product` gemäß UML-Diagramm und Klassenbeschreibung. Sie können die vorhandenen Testklassen für JUnit-Tests verwenden.
+Implementieren Sie die Model-Klasse `Movie` gemäß UML-Diagramm und Klassenbeschreibung. Sie können die vorhandenen Testklassen für JUnit-Tests verwenden.
 
 
 .Klassenbeschreibung
@@ -108,20 +108,20 @@ Implementieren Sie die Model-Klasse `Product` gemäß UML-Diagramm und Klassenbe
 |  Attribut/Methode | Beschreibung
 
 | idCounter |
-* Counter, der für jede erzeugte `Product`-Instanz eine eindeutige Id vergibt.
+* Counter, der für jede erzeugte `Movie`-Instanz eine eindeutige Id vergibt.
 * Der Counter soll beim Wert 34 starten.
 
 
 | id
 |
-* Jede `Product`-Instanz muss vom `idCounter` eine eindeutige Id erhalten, die nach ihrere Zuweisung *nicht* mehr verändert werden darf.
+* Jede `Movie`-Instanz muss vom `idCounter` eine eindeutige Id erhalten, die nach ihrere Zuweisung *nicht* mehr verändert werden darf.
 
 
 | name
 |
 * Repräsentiert den Namen eines Produktes.
-// * Der Name des Products darf nicht null sein.
-// * Der Name des Products muss mindestens 3 Zeichen lang sein.
+// * Der Name des Movies darf nicht null sein.
+// * Der Name des Movies muss mindestens 3 Zeichen lang sein.
 // * Werfen Sie pro Fehlerfall eine `IllegalArgumentException` mit einer sprechenden Fehlermeldung.
 
 
@@ -173,9 +173,9 @@ Beispiel:
 
 <<<
 
-== Aufgabe - OnlineShop
+== Aufgabe - MovieDatabase
 
-Implementieren Sie die Klasse `OnlineShop` gemäß UML-Diagramm und Klassenbeschreibung. Sie können die vorhandenen Testklassen für JUnit-Tests verwenden.
+Implementieren Sie die Klasse `MovieDatabase` gemäß UML-Diagramm und Klassenbeschreibung. Sie können die vorhandenen Testklassen für JUnit-Tests verwenden.
 
 .Klassenbeschreibung
 [%headers,cols="2m,5a"]
@@ -183,56 +183,56 @@ Implementieren Sie die Klasse `OnlineShop` gemäß UML-Diagramm und Klassenbesch
 |  Attribut/Methode | Beschreibung
 
 | name
-| Der Name des Onlineshops.
+| Der Name des Onlinemdbs.
 
-| products
+| movies
 |
-* Alle Produkte sollen im Array `products` vom Typ `Product[]` gespeichert werden.
+* Alle Produkte sollen im Array `movies` vom Typ `Movie[]` gespeichert werden.
 * Insgesamt sollen *5* Produkte gespeichert werden.
 * Achten Sie *genau* darauf, dass keine Methode eine Referenz auf das Array zurückliefert.
 
 
-| add( product ) +
+| add( movie ) +
 _boolean_
 |
-* Die Methode fügt ein neues Produkt in den Onlineshop hinzu.
+* Die Methode fügt ein neues Produkt in den Onlinemdb hinzu.
 * Das Produkt darf nicht doppelt aufgenommen werden.
 * Wenn ein Produkt aufgenommen wurde, so soll die Methode `true` zurückliefern.
 * Im Fehlerfall bzw. wenn ein Produkt nicht aufgenommen wurde, so soll die Methode `false` zurückliefern.
 
 
 | sellById( id ) +
-_Product_
+_Movie_
 |
 * Die Methode dient zum Verkaufen eines Produktes.
-* Wenn das Produkt mit der übergebenen `id` im Shop vorhanden ist, so soll es aus dem Array entfernt werden. Geben Sie das entfernte Objekt zurück.
+* Wenn das Produkt mit der übergebenen `id` im Movie-DB vorhanden ist, so soll es aus dem Array entfernt werden. Geben Sie das entfernte Objekt zurück.
 * Ist das Produkt mit der gesuchten `id` nicht vorhanden, so soll der Wert `null` zurückgegeben werden.
 
 
-| countProducts() +
+| countMovies() +
 _int_
 |
-* Zählt alle im Shop vorhandenen Produkte und liefert den Wert zurück.
+* Zählt alle im Movie-DB vorhandenen Produkte und liefert den Wert zurück.
 
 
 | sortByPrice()
-_Product[]_
+_Movie[]_
 |
 * Sortiert alle Produkte, *aufsteigend*, nach deren Preis.
 * Die Methode soll ein *neues* Array mit den sortierten Werten zurückliefern.
 * Alle `null` Werte sollen an das Ende des Arrays sortiert werden.
-* Das bestehende Array `products` soll unsortiert bleiben.
+* Das bestehende Array `movies` soll unsortiert bleiben.
 
-Hinweis:: Kopieren Sie die Daten vor dem Sortieren zuerst in ein *neues* Array mit der gleichen Größe wie `products`.
+Hinweis:: Kopieren Sie die Daten vor dem Sortieren zuerst in ein *neues* Array mit der gleichen Größe wie `movies`.
 
 | toString() +
 _String_
 |
 
-* Liefert detaillierte Informationen über den Shop zurück:
+* Liefert detaillierte Informationen über den Movie-DB zurück:
 [source,text]
 ----
-Shopbezeichnung: Joe's Milchbar
+Movie-DBbezeichnung: Joe's Milchbar
 Vorhandene Produkte:
 34, Smo-King Kaltrauchgenerator Big-Grill-SMO 1,25 Liter, 139.00 €, Food
 ...
@@ -288,7 +288,7 @@ class Pet {
 
 == Aufgabe - Abgabeverfahren
 
-- Projektordner `s4-plf-001_online_shop` mit dem Windows Explorer öffnen.
+- Projektordner `s4-plf-001_online_mdb` mit dem Windows Explorer öffnen.
 - Datei `abgabe.cmd` ausführen.
 - *Z: Laufwerk* öffnen und Abgabe kontrollieren.
 - Vom Prüfungsrechner *abmelden*.
