@@ -2,22 +2,22 @@ package model;
 
 public class Movie {
 
-    private static Long idCounter = 34L;
+    private static Long idCounter = 21L;
 
     private Long id;
     private String name;
-    private double price;
-    private char category;
-
-    public Movie(String name, double price, char category) {
+    private double duration;
+        public Movie(String name, double duration) {
         setId( idCounter++ );
         setName(name);
-        setPrice(price);
-        setCategory(category);
+        setDuration(duration);
     }
 
+    public static void resetIdCount () {
+            idCounter = 21L;
+    }
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     private void setId(Long id) {
@@ -32,38 +32,16 @@ public class Movie {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
+    public double getDuration() {
+        return duration;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    public char getCategory() {
-        return category;
-    }
-
-    public void setCategory(char category) {
-
-        if(category == 'm' || category == 'f' || category == 'c' || category == 'o') {
-            this.category = category;
-        } else {
-            throw new IllegalArgumentException("Die Kategory darf nur m, f, c oder o sein!");
-        }
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 
     @Override
     public String toString() {
-        String categoryLong = "";
-        switch (category) {
-            case 'm': categoryLong = "Media"; break;
-            case 'f': categoryLong = "Food"; break;
-            case 'c': categoryLong = "Cosmetics"; break;
-            case 'o': categoryLong = "Office Equipment"; break;
-            default:
-                throw new IllegalArgumentException("Wert unbekannt!");
-        }
-        return id + ", " + name + ", " + price + "€, " + categoryLong;
+        return String.format("%d: %s (%s sec)", this.id, name, duration);
     }
 }

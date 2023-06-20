@@ -2,89 +2,91 @@ package model;
 
 public class MovieDatabase {
 
+    public static final boolean DIRECTION_ASC = false;
+    public static final boolean DIRECTION_DESC = true;
+    public static final int CAPACITY = 7;
     private static final String NL = "\n";
-    private static final int DIRECTION_ASC = 5;
-    private static final int DIRECTION_DESC = 8;
-    public static final int CAPACITY = 5;
-
+    private final Movie[] movies;
     private String name;
-    private Movie[] movies;
 
     public MovieDatabase(String name) {
         setName(name);
         this.movies = new Movie[CAPACITY];
     }
 
+    // Kann statisch und public implementiert werden, da Helper-Method
+    public static Movie[] copy(Movie[] movies) {
+        if (movies == null) throw new IllegalArgumentException("Movies darf nicht null sein!");
+        Movie[] copy = new Movie[movies.length];
+        System.arraycopy(movies, 0, copy, 0, movies.length);
+        return copy;
+    }
+
     public String getName() {
         return name;
     }
+
+    // -- METHODS ----
 
     public void setName(String name) {
         this.name = name;
     }
 
-    // -- METHODS ----
-
-    public boolean add(Movie movie) {
+    public void add(Movie movie) {
         // Check null
-        if(movie == null)
-            return false;
+        if (movie == null) throw new IllegalArgumentException("Add: Movie darf nicht null sein!");
 
         // Check doppelt
-        for(Movie p : movies) {
-            if(p != null && p.getId() != null && p.getId().equals( movie.getId() )) {
-                return false;
+        for (Movie p : movies) {
+            if (p != null && p.getId().equals(movie.getId())) {
+                throw new IllegalArgumentException("Add: Movie ist schon vorhanden!");
             }
         }
 
-        for(int i = 0; i < movies.length; i++) {
-            Movie temp = movies[i];
-
-            if(temp == null) {
+        for (int i = 0; i < movies.length; i++) {
+            if (movies[i] == null) {
                 movies[i] = movie;
-                return true;
+                return;
             }
         }
-
-        return false;
+        throw new IllegalArgumentException("Kein Platz mehr!");
     }
 
-
-    public Movie sellById(Long id) {
-        if(id == null)
-            return null;
-
-
-        for(int i = 0; i < movies.length; i++) {
+    public Movie removeById(Long id) {
+        if (id == null) return null;
+        for (int i = 0; i < movies.length; i++) {
+            if (movies[i] == null) {
+                continue;
+            }
             Movie temp = movies[i];
-            if( temp != null && id.equals( temp.getId() ) ) {
+            if (movies[i].getId() == id) {
                 movies[i] = null;
                 return temp;
             }
         }
-
         return null;
     }
 
-
-
-    public Movie[] sortByPrice() {
-        Movie[] sorted = MovieDatabase.copy( movies );
+    public Movie[] sortByDuration(boolean direction) {
+        Movie[] sorted = MovieDatabase.copy(movies);
         int length = sorted.length;
-
-        boolean isSorted = true;
+        boolean needswap;
+        boolean didChange = true;
 
 //        for(int j = 0; j < length - 1; j++) {
-        while (isSorted) {  // bonus
-            isSorted = false;
-            for(int i = 0; i < length - 1; i++) {
+        while (didChange) {  // bonus
+            didChange = false;
+            for (int i = 0; i < length - 1; i++) {
                 Movie p1 = sorted[i];
                 Movie p2 = sorted[i + 1];
-                if(p2 == null)
-                    continue;
-                if(p1 == null || p1.getPrice() > p2.getPrice()) {
-                    swap(sorted, i, i+1);
-                    isSorted = true;
+                if (p2 == null) continue;
+                if (direction == DIRECTION_ASC)
+                needswap = p1 == null || p1.getDuration() >= p2.getDuration();
+                else needswap = p1 == null || p1.getDuration() <= p2.getDuration();
+                if (needswap)
+                {
+                    swap(sorted, i, i + 1);
+                    didChange = true;
                 }
             }
         }
@@ -92,31 +94,16 @@ public class MovieDatabase {
     }
 
     private void swap(Movie[] movies, int i1, int i2) {
-        if(movies == null)
-            throw new IllegalArgumentException("Movies darf nicht null sein!");
+        if (movies == null) throw new IllegalArgumentException("Movies darf nicht null sein!");
 
         Movie temp = movies[i1];
         movies[i1] = movies[i2];
         movies[i2] = temp;
     }
 
-
-    // Kann statisch und public implementiert werden, da Helper-Method
-    public static Movie[] copy(Movie[] movies) {
-        if(movies == null)
-            throw new IllegalArgumentException("Movies darf nicht null sein!");
-        Movie[] copy = new Movie[movies.length];
-        for(int i = 0; i < movies.length; i++) {
-            copy[i] = movies[i];
-        }
-
-        return copy;
-    }
-
-
     public int countMovies() {
         int count = 0;
-        for(Movie p : movies) {
+        for (Movie p : movies) {
             count += (p == null ? 0 : 1);
         }
         return count;
@@ -128,8 +115,9 @@ public class MovieDatabase {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Movie-DBbezeichnung: ").append(name).append(NL);
-        sb.append("Vorhandene Produkte").append("NL");
-        for(Movie p : movies) {
+        sb.append(this.countMovies() + " Vorhandene Filme:").append(NL);
+        for (Movie p : movies) {
+            if (p == null) continue;
             sb.append(p).append(NL);
         }
 

@@ -14,7 +14,7 @@ SET STUDENT_SRC=%CURRENT%/student/src
 SET PDF_FILE=%PROJECT_NAME%.pdf
 SET PDF_FULL=%CURRENT%/doc/%PDF_FILE%
 
-SET "ZIPPER_PATH=C:\Program Files\SLM-Tools\bro-tools\assets\zipper"
+SET "ZIPPER_PATH=C:\Program Files\GRG-Tools\bro-tools\assets\zipper"
 
 
 SET CLEAN=%1
