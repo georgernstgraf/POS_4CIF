@@ -8,12 +8,11 @@ public class Movie {
     private String name;
     private double duration;
         public Movie(String name, double duration) {
-        setId( idCounter++ );
-        setName(name);
-        setDuration(duration);
+    // TODO
     }
 
     public static void resetIdCount () {
+            // bitte so lassen, ist relevant für die Tests
             idCounter = 21L;
     }
     public Long getId() {
@@ -21,27 +20,30 @@ public class Movie {
     }
 
     private void setId(Long id) {
-        this.id = id;
+        // TODO
     }
 
     public String getName() {
-        return name;
+        // TODO
+        return null;
     }
 
     public void setName(String name) {
-        this.name = name;
+        // TODO
     }
 
     public double getDuration() {
-        return duration;
+        // TODO
+            return 0.0;
     }
 
     public void setDuration(double duration) {
-        this.duration = duration;
+        // TODO
     }
 
     @Override
     public String toString() {
-        return String.format("%d: %s (%s sec)", this.id, name, duration);
+        return null;
+        // TODO
     }
 }
