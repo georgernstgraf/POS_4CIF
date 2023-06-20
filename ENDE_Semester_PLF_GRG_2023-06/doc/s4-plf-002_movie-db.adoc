@@ -14,9 +14,8 @@
 * Achten Sie darauf, nur kompilierfähige Programme abzugeben. Sollten Sie einen Compilerfehler nicht beheben können,
 kommentieren Sie das entsprechende Codestück aus. Nicht kompilierfähige Programme werden negativ bewertet.
 * Halten Sie sich exakt an die Vorgaben, Formate sowie Klassen- und Methodennamen.
+* Überall wo der Kommentar `// TODO` vorkommt, haben Sie Aufgaben zu lösen.
 ====
-
----
 
 == Beschreibung
 
@@ -188,7 +187,7 @@ entfernt werden. Geben Sie das entfernte Objekt zurück.
 |
 * Die Methode soll ein *neues* Array mit den sortierten Werten zurückliefern.
 * Ist der boolean Parameter `DIRECTION_ASC` soll der kürzeste Film am Beginn sein.
-* Ist der boolean Parameter DIRECTION_DESC` soll der längste Film am Beginn sein.
+* Ist der boolean Parameter `DIRECTION_DESC` soll der längste Film am Beginn sein.
 * Alle `null` Werte sollen an das Ende des Arrays sortiert werden.
 * Das bestehende Array `movies` soll unsortiert bleiben.
 
@@ -223,7 +222,8 @@ Verhalten der MovieDatabase überprüfen. Wählen Sie 3 Tests aus folgender Ausw
 - testAddDoppelt
 - testRemove
 - testRemoveNull
-- testSellNichtVorhandenesMovie
+- testRemoveNichtVorhandenesMovie
+- testCount
 - testSort
 - testToString
 
