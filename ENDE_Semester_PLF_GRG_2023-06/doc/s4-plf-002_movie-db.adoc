@@ -66,22 +66,17 @@ MovieDatabase o-right- Movie
 model <-[hidden]- test
 ----
 
-// class MovieTest {
-// }
-// class MovieDatabaseTest {
-// }
-
 
 == Angabe und Abgabe Verfahren
 
 === Angabe
 
-- Auf *Z:\\* finden Sie das Zipfile der Angabe, dieses auf den Desktop *verschieben*.
+- Auf *Z:\* finden Sie das Zipfile der Angabe, dieses auf den Desktop *verschieben*.
 - Am Desktop - in den Desktop entpacken - und *die Aufgaben lösen*
 
 === Abgabe
 
-- In Intellij mittels `File -> Export -> Project to Zip File` auf das Laufwerk `Z:\\` abgeben. (`Vorname_Nachname.zip`)
+- In Intellij mittels `File -> Export -> Project to Zip File` auf das Laufwerk `Z:\` abgeben. (`Vorname_Nachname.zip`)
 - Vom Prüfungsrechner *abmelden* und diesen laufen lassen.
 
 
