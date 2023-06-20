@@ -1,3 +1,7 @@
+/**/.idea/
+/**/*.iml
+**/doc/.asciidoctor/
+**/doc/diag-*.svg
 # Compiled class file
 *.class
 
