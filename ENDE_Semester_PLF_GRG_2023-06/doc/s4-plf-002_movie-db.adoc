@@ -67,9 +67,9 @@ MovieDatabase o-right- Movie
 model <-[hidden]- test
 ----
 
-// class MovieTest {
+// class GRGMovieTest {
 // }
-// class MovieDatabaseTest {
+// class GRGMovieDatabaseTest {
 // }
 
 

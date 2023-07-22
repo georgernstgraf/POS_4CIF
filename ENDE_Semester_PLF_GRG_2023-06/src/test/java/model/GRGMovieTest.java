@@ -2,7 +2,7 @@ package model;
 
 import org.junit.jupiter.api.Test;
 
-class MovieTest {
+class GRGMovieTest {
 
     @Test
     void testToString() {

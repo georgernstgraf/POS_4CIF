@@ -1,10 +1,10 @@
 package model;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
-class MovieDatabaseTest {
+class GRGMovieDatabaseTest {
 
     private static final int CAPACITY = 7;
     private static final Long INIT_ID = 21L;
@@ -25,7 +25,7 @@ class MovieDatabaseTest {
     private void testFill() {
         for (int i = 0; i < CAPACITY; i++) {
             mdb.add(testmovies[i]);
-            Assertions.assertEquals((i + 1), mdb.countMovies(), "countMovies: Soll=" + (i));
+            assertEquals((i + 1), mdb.countMovies(), "countMovies: Soll=" + (i));
         }
     }
 
@@ -34,7 +34,7 @@ class MovieDatabaseTest {
         testFill();
         try {
             mdb.add(testmovies[CAPACITY]);
-            throw new AssertionError("Adding one should not be possible");
+            fail("Adding one should not be possible");
         } catch (IllegalArgumentException e) {
             // this is OK
         }
@@ -46,7 +46,7 @@ class MovieDatabaseTest {
     void testAddNull() {
         try {
             mdb.add(null);
-            throw new AssertionError("should not add null!");
+            fail("should not add null!");
         } catch (IllegalArgumentException e) {
             // OIK!
         }
@@ -57,7 +57,7 @@ class MovieDatabaseTest {
         try {
             mdb.add(testmovies[3]);
             mdb.add(testmovies[3]);
-            throw new AssertionError("Konnte doppelt aufnehmen!");
+            fail("Konnte doppelt aufnehmen!");
         } catch (IllegalArgumentException e) {
             // OK
         }
@@ -70,21 +70,21 @@ class MovieDatabaseTest {
     void testRemove() {
         testFill();
         Movie result = mdb.removeById(INIT_ID);
-        Assertions.assertEquals(INIT_ID, result.getId(), "removeById arbeitet nicht richtig! Erwartet Movie1 mit ID 21");
+        assertEquals(INIT_ID, result.getId(), "removeById arbeitet nicht richtig! Erwartet Movie1 mit ID 21");
     }
 
     @Test
     void testRemoveNull() {
         testFill();
         Movie result = mdb.removeById(null);
-        Assertions.assertNull(result, "removeById null nicht geprüft");
+        assertNull(result, "removeById null nicht geprüft");
     }
 
     @Test
     void testSellNichtVorhandenesMovie() {
         testFill();
         Movie result = mdb.removeById(-1L);
-        Assertions.assertNull(result, "removeById -1: Movie sollte nicht entfernt werden!");
+        assertNull(result, "removeById -1: Movie sollte nicht entfernt werden!");
     }
 
 
@@ -97,7 +97,7 @@ class MovieDatabaseTest {
         testFill();
         Movie[] sorted = mdb.sortByDuration(MovieDatabase.DIRECTION_DESC);
         for (int i = 0; i < sorted.length -1; i++) {
-            Assertions.assertTrue(sorted[i].getDuration() >= sorted[i+1].getDuration(), "sortByDuration: Sortierung fehlerhaft");
+            assertTrue(sorted[i].getDuration() >= sorted[i+1].getDuration(), "sortByDuration: Sortierung fehlerhaft");
         }
     }
 
@@ -117,7 +117,7 @@ class MovieDatabaseTest {
                 "26: Testmovie 5 (6000.0 sec)\n" +
                 "27: Testmovie 6 (7000.0 sec)\n";
         System.out.println(mdb);
-        Assertions.assertEquals(expected, mdb.toString(), "toString: fehlerhaft");
+        assertEquals(expected, mdb.toString(), "toString: fehlerhaft");
     }
 
 }
